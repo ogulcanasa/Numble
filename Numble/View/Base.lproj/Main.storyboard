@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Numble" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a number..." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tdc-aE-gaX">
+                                <rect key="frame" x="59" y="115" width="296" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKs-u1-s8S">
+                                <rect key="frame" x="59" y="269" width="296" height="341"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="341" id="lBf-X1-gbF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQ5-En-Dua">
+                                <rect key="frame" x="90" y="644" width="235" height="89"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="156-7l-1uf"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Make a guess!"/>
+                                <connections>
+                                    <action selector="guessButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DtL-hd-due"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRk-dK-Tcd">
+                                <rect key="frame" x="90" y="759" width="235" height="53"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Restart the game"/>
+                                <connections>
+                                    <action selector="restartButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FBX-Q5-JsJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tdc-aE-gaX" firstAttribute="trailing" secondItem="IKs-u1-s8S" secondAttribute="trailing" id="3Iy-Gp-7Wa"/>
+                            <constraint firstItem="Tdc-aE-gaX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="59" id="CUO-ff-cVM"/>
+                            <constraint firstItem="Tdc-aE-gaX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="71" id="Ev0-HX-5f2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YRk-dK-Tcd" secondAttribute="bottom" constant="50" id="S9m-mD-5zR"/>
+                            <constraint firstItem="rQ5-En-Dua" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="90" id="TBP-SA-njs"/>
+                            <constraint firstItem="rQ5-En-Dua" firstAttribute="top" secondItem="IKs-u1-s8S" secondAttribute="bottom" constant="34" id="fBn-50-YbT"/>
+                            <constraint firstItem="Tdc-aE-gaX" firstAttribute="leading" secondItem="IKs-u1-s8S" secondAttribute="leading" id="fUx-Aw-qih"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rQ5-En-Dua" secondAttribute="bottom" constant="129" id="kUW-ZH-cJ7"/>
+                            <constraint firstItem="YRk-dK-Tcd" firstAttribute="trailing" secondItem="rQ5-En-Dua" secondAttribute="trailing" id="ncW-iY-fuf"/>
+                            <constraint firstItem="IKs-u1-s8S" firstAttribute="centerX" secondItem="rQ5-En-Dua" secondAttribute="centerX" id="sMC-nY-zLB"/>
+                            <constraint firstItem="YRk-dK-Tcd" firstAttribute="leading" secondItem="rQ5-En-Dua" secondAttribute="leading" id="vrv-9N-TdQ"/>
+                            <constraint firstItem="YRk-dK-Tcd" firstAttribute="top" secondItem="rQ5-En-Dua" secondAttribute="bottom" constant="26" id="yKV-Lx-hOO"/>
+                            <constraint firstItem="Tdc-aE-gaX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z6C-4G-vPc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonLabel" destination="rQ5-En-Dua" id="BSp-w0-kfX"/>
+                        <outlet property="notesLabel" destination="IKs-u1-s8S" id="8M9-6R-l6C"/>
+                        <outlet property="numberTextField" destination="Tdc-aE-gaX" id="uLa-1P-uye"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28.985507246376812" y="53.571428571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
