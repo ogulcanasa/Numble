@@ -38,6 +38,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+         view.addGestureRecognizer(tap)
     }
 
     @IBAction func guessButtonClicked(_ sender: Any) {
@@ -94,6 +96,16 @@ class ViewController: UIViewController {
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.green
             numberTextField.backgroundColor = UIColor.green
+            zeroTF.tintColor = UIColor.green
+            oneTF.tintColor = UIColor.green
+            twoTF.tintColor = UIColor.green
+            threeTF.tintColor = UIColor.green
+            fourTF.tintColor = UIColor.green
+            fiveTF.tintColor = UIColor.green
+            sixTF.tintColor = UIColor.green
+            sevenTF.tintColor = UIColor.green
+            eightTF.tintColor = UIColor.green
+            nineTF.tintColor = UIColor.green
         }
     }
     
@@ -132,6 +144,10 @@ class ViewController: UIViewController {
         sevenTF.tintColor = UIColor.black
         eightTF.tintColor = UIColor.black
         nineTF.tintColor = UIColor.black
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
