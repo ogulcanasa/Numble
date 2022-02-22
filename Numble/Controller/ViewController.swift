@@ -24,6 +24,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var eightTF: UIButton!
     @IBOutlet weak var nineTF: UIButton!
     
+    @IBOutlet weak var textField1: UITextField!
+    @IBOutlet weak var textField2: UITextField!
+    @IBOutlet weak var textField3: UITextField!
+    @IBOutlet weak var textField4: UITextField!
+    
+    
     
     var number = ""
     var numberInt : Int!
@@ -45,9 +51,14 @@ class ViewController: UIViewController {
     @IBAction func guessButtonClicked(_ sender: Any) {
         
         (sender as AnyObject).setTitle("Continue to guess...", for: .normal)
-        number = numberTextField.text!
+        number = numberTextField.text ?? "0000"
         numberInt = Int(number)
-        userNumberArray = [Int(numberInt/1000), Int((numberInt%1000)/100) , Int((numberInt%100)/10) , Int(numberInt%10)]
+        
+        if numberTextField.text == "" {
+            userNumberArray = [0,0,0,0]
+            numberTextField.text = "0000"
+        } else {
+            userNumberArray = [Int(numberInt/1000), Int((numberInt%1000)/100) , Int((numberInt%100)/10) , Int(numberInt%10)] }
 
         if (buttonLabel.titleLabel?.text == "Make a guess!") {
             numberOfClicked += 1
@@ -106,11 +117,15 @@ class ViewController: UIViewController {
             sevenTF.tintColor = UIColor.green
             eightTF.tintColor = UIColor.green
             nineTF.tintColor = UIColor.green
+            textField1.backgroundColor = UIColor.green
+            textField2.backgroundColor = UIColor.green
+            textField3.backgroundColor = UIColor.green
+            textField4.backgroundColor = UIColor.green
         }
     }
     
     @IBAction func numberButtonClicked(_ sender: UIButton) {
-        sender.tintColor = UIColor.white
+        sender.tintColor = UIColor.systemTeal
     }
     
     
@@ -130,8 +145,8 @@ class ViewController: UIViewController {
         minus = 0
         plus = 0
         numberOfClicked = 0
-        view.backgroundColor = UIColor.white
-        numberTextField.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.systemTeal
+        numberTextField.backgroundColor = UIColor.systemTeal
         numberTextField.isHidden = false
         buttonLabel.isHidden = false
         zeroTF.tintColor = UIColor.black
@@ -144,6 +159,15 @@ class ViewController: UIViewController {
         sevenTF.tintColor = UIColor.black
         eightTF.tintColor = UIColor.black
         nineTF.tintColor = UIColor.black
+        textField1.backgroundColor = UIColor.systemTeal
+        textField2.backgroundColor = UIColor.systemTeal
+        textField3.backgroundColor = UIColor.systemTeal
+        textField4.backgroundColor = UIColor.systemTeal
+        textField1.text = ""
+        textField2.text = ""
+        textField3.text = ""
+        textField4.text = ""
+   
     }
     
     @objc func dismissKeyboard() {
