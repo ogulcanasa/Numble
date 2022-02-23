@@ -121,6 +121,32 @@ class ViewController: UIViewController {
             textField2.backgroundColor = UIColor.green
             textField3.backgroundColor = UIColor.green
             textField4.backgroundColor = UIColor.green
+            textField1.text = String(userNumberArray[0])
+            textField2.text = String(userNumberArray[1])
+            textField3.text = String(userNumberArray[2])
+            textField4.text = String(userNumberArray[3])
+        }
+        
+        if numberOfClicked > 19 {
+            notesLabel.text = "Let's Focus!! \n TRIAL: \(numberOfClicked)"
+            numberTextField.isHidden = true
+            buttonLabel.isHidden = true
+            view.backgroundColor = UIColor.red
+            numberTextField.backgroundColor = UIColor.red
+            zeroTF.tintColor = UIColor.red
+            oneTF.tintColor = UIColor.red
+            twoTF.tintColor = UIColor.red
+            threeTF.tintColor = UIColor.red
+            fourTF.tintColor = UIColor.red
+            fiveTF.tintColor = UIColor.red
+            sixTF.tintColor = UIColor.red
+            sevenTF.tintColor = UIColor.red
+            eightTF.tintColor = UIColor.red
+            nineTF.tintColor = UIColor.red
+            textField1.backgroundColor = UIColor.red
+            textField2.backgroundColor = UIColor.red
+            textField3.backgroundColor = UIColor.red
+            textField4.backgroundColor = UIColor.red
         }
     }
     
