@@ -29,8 +29,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField3: UITextField!
     @IBOutlet weak var textField4: UITextField!
     
-    
-    
     var number = ""
     var numberInt : Int!
     var userNumberArray = [Int]()
@@ -57,7 +55,10 @@ class ViewController: UIViewController {
         if numberTextField.text == "" {
             userNumberArray = [0,0,0,0]
             numberTextField.text = "0000"
-        } else {
+        } else if numberTextField.text?.count ?? 0 < 4{
+            userNumberArray = [0,0,0,0]
+            numberTextField.text = "0000"
+        } else{
             userNumberArray = [Int(numberInt/1000), Int((numberInt%1000)/100) , Int((numberInt%100)/10) , Int(numberInt%10)] }
 
         if (buttonLabel.titleLabel?.text == "Make a guess!") {
@@ -103,6 +104,10 @@ class ViewController: UIViewController {
         
         if plus == 4 {
             notesLabel.text = "CONGRATULATIONS!! \n TRIAL: \(numberOfClicked)"
+            textField1.isEnabled = false
+            textField2.isEnabled = false
+            textField3.isEnabled = false
+            textField4.isEnabled = false
             numberTextField.isHidden = true
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.green
@@ -129,6 +134,10 @@ class ViewController: UIViewController {
         
         if numberOfClicked > 19 {
             notesLabel.text = "Let's Focus!! \n TRIAL: \(numberOfClicked)"
+            textField1.isEnabled = false
+            textField2.isEnabled = false
+            textField3.isEnabled = false
+            textField4.isEnabled = false
             numberTextField.isHidden = true
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.red
