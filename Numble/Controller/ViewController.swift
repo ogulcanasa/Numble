@@ -134,10 +134,6 @@ class ViewController: UIViewController {
         
         if numberOfClicked > 19 {
             notesLabel.text = "Let's Focus!! \n TRIAL: \(numberOfClicked)"
-            textField1.isEnabled = false
-            textField2.isEnabled = false
-            textField3.isEnabled = false
-            textField4.isEnabled = false
             numberTextField.isHidden = true
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.red
@@ -156,6 +152,14 @@ class ViewController: UIViewController {
             textField2.backgroundColor = UIColor.red
             textField3.backgroundColor = UIColor.red
             textField4.backgroundColor = UIColor.red
+            textField1.text = ""
+            textField2.text = ""
+            textField3.text = ""
+            textField4.text = ""
+            textField1.isEnabled = false
+            textField2.isEnabled = false
+            textField3.isEnabled = false
+            textField4.isEnabled = false
         }
     }
     
@@ -202,6 +206,10 @@ class ViewController: UIViewController {
         textField2.text = ""
         textField3.text = ""
         textField4.text = ""
+        textField1.isEnabled = true
+        textField2.isEnabled = true
+        textField3.isEnabled = true
+        textField4.isEnabled = true
    
     }
     
