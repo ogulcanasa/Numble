@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var buttonLabel: UIButton!
+    @IBOutlet weak var changeButtonLabel: UIButton!
     
     @IBOutlet weak var selectedZeroTF: UIButton!
     @IBOutlet weak var selectedOneTF: UIButton!
@@ -165,6 +166,7 @@ class ViewController: UIViewController {
             textField2.text = String(userNumberArray[1])
             textField3.text = String(userNumberArray[2])
             textField4.text = String(userNumberArray[3])
+            changeButtonLabel.tintColor = UIColor.green
         }
         
         if numberOfClicked > 19 {
@@ -209,12 +211,18 @@ class ViewController: UIViewController {
             textField2.isEnabled = false
             textField3.isEnabled = false
             textField4.isEnabled = false
+            changeButtonLabel.tintColor = UIColor.red
         }
         selectedNumber = ""
     }
     
     @IBAction func numberButtonClicked(_ sender: UIButton) {
         sender.tintColor = UIColor.systemTeal
+    }
+    @IBAction func changeTheNumberButtonClicked(_ sender: UIButton) {
+        enableOfSelectedNumbers()
+        numberTextField.text = ""
+        selectedNumber = ""
     }
     
     @IBAction func restartButtonClicked(_ sender: Any) {
@@ -226,13 +234,13 @@ class ViewController: UIViewController {
         randomArray = Array(set)
         print(set)
         notes = ""
-        numberTextField.text = ""
         notesLabel.text = "Notes"
         common = 0
         minus = 0
         plus = 0
         numberOfClicked = 0
         view.backgroundColor = UIColor.systemTeal
+        numberTextField.text = ""
         numberTextField.backgroundColor = UIColor.systemTeal
         numberTextField.isHidden = false
         buttonLabel.isHidden = false
@@ -261,6 +269,7 @@ class ViewController: UIViewController {
         textField4.isEnabled = true
         selectedNumber = ""
         enableOfSelectedNumbers()
+        changeButtonLabel.tintColor = UIColor.black
     }
     
     func enableOfSelectedNumbers() {
