@@ -13,34 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var buttonLabel: UIButton!
     @IBOutlet weak var changeButtonLabel: UIButton!
-    
-    @IBOutlet weak var selectedZeroTF: UIButton!
-    @IBOutlet weak var selectedOneTF: UIButton!
-    @IBOutlet weak var selectedTwoTF: UIButton!
-    @IBOutlet weak var selectedThreeTF: UIButton!
-    @IBOutlet weak var selectedFourTF: UIButton!
-    @IBOutlet weak var selectedFiveTF: UIButton!
-    @IBOutlet weak var selectedSixTF: UIButton!
-    @IBOutlet weak var selectedSevenTF: UIButton!
-    @IBOutlet weak var selectedEightTF: UIButton!
-    @IBOutlet weak var selectedNineTF: UIButton!
-    
-    @IBOutlet weak var zeroTF: UIButton!
-    @IBOutlet weak var oneTF: UIButton!
-    @IBOutlet weak var twoTF: UIButton!
-    @IBOutlet weak var threeTF: UIButton!
-    @IBOutlet weak var fourTF: UIButton!
-    @IBOutlet weak var fiveTF: UIButton!
-    @IBOutlet weak var sixTF: UIButton!
-    @IBOutlet weak var sevenTF: UIButton!
-    @IBOutlet weak var eightTF: UIButton!
-    @IBOutlet weak var nineTF: UIButton!
-    
-    @IBOutlet weak var textField1: UITextField!
-    @IBOutlet weak var textField2: UITextField!
-    @IBOutlet weak var textField3: UITextField!
-    @IBOutlet weak var textField4: UITextField!
-    
+    @IBOutlet weak var selectedZeroTF,selectedOneTF,selectedTwoTF,selectedThreeTF,selectedFourTF,selectedFiveTF,selectedSixTF,selectedSevenTF,selectedEightTF,selectedNineTF: UIButton!
+    @IBOutlet weak var zeroTF,oneTF,twoTF,threeTF,fourTF,fiveTF,sixTF,sevenTF,eightTF,nineTF: UIButton!
+    @IBOutlet weak var textField1,textField2,textField3,textField4: UITextField!
+
     var number = ""
     var numberInt : Int!
     var userNumberArray = [Int]()
@@ -56,6 +32,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberTextField.isEnabled = false
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+           view.addGestureRecognizer(tap)
     }
     
     @IBAction func selectedNumberButtonClicked(_ sender: UIButton) {
@@ -83,7 +61,8 @@ class ViewController: UIViewController {
             userNumberArray = [0,0,0,0]
             numberTextField.text = "0000"
         } else {
-            userNumberArray = [Int(numberInt/1000), Int((numberInt%1000)/100) , Int((numberInt%100)/10) , Int(numberInt%10)] }
+            userNumberArray = [Int(numberInt/1000), Int((numberInt%1000)/100) , Int((numberInt%100)/10) , Int(numberInt%10)]
+        }
 
         if (buttonLabel.titleLabel?.text == "Make a guess!") {
             enableOfSelectedNumbers()
@@ -101,11 +80,17 @@ class ViewController: UIViewController {
                     }
                 }
             }
+            if set.count == 0 {
+                notes = "\(numberTextField.text!) ( 0 / 0 )"
+                notesLabel.text = notes
+                numberTextField.text = ""
+            } else {
             minus = common - plus
             notes = "\(numberTextField.text!) ( \(plus) / \(-minus))"
             notesLabel.text = notes
             numberTextField.text = ""
             print(randomArray)
+            }
         } else {
             enableOfSelectedNumbers()
             numberOfClicked += 1
@@ -225,53 +210,87 @@ class ViewController: UIViewController {
         selectedNumber = ""
     }
     
-    @IBAction func restartButtonClicked(_ sender: Any) {
-        buttonLabel.titleLabel?.text = "Make a guess!"
-        set = []
-        while set.count < userNumberArray.count {
-            set.insert(Int.random(in: 0...9))
-            }
-        randomArray = Array(set)
-        print(set)
-        notes = ""
-        notesLabel.text = "Notes"
-        common = 0
-        minus = 0
-        plus = 0
-        numberOfClicked = 0
-        view.backgroundColor = UIColor.systemTeal
-        numberTextField.text = ""
-        numberTextField.backgroundColor = UIColor.systemTeal
-        numberTextField.isHidden = false
-        buttonLabel.isHidden = false
-        changeColorOfTintColorToBlack()
-        selectedZeroTF.tintColor = UIColor.black
-        selectedOneTF.tintColor = UIColor.black
-        selectedTwoTF.tintColor = UIColor.black
-        selectedThreeTF.tintColor = UIColor.black
-        selectedFourTF.tintColor = UIColor.black
-        selectedFiveTF.tintColor = UIColor.black
-        selectedSixTF.tintColor = UIColor.black
-        selectedSevenTF.tintColor = UIColor.black
-        selectedEightTF.tintColor = UIColor.black
-        selectedNineTF.tintColor = UIColor.black
-        textField1.backgroundColor = UIColor.systemTeal
-        textField2.backgroundColor = UIColor.systemTeal
-        textField3.backgroundColor = UIColor.systemTeal
-        textField4.backgroundColor = UIColor.systemTeal
-        textField1.text = ""
-        textField2.text = ""
-        textField3.text = ""
-        textField4.text = ""
-        textField1.isEnabled = true
-        textField2.isEnabled = true
-        textField3.isEnabled = true
-        textField4.isEnabled = true
-        selectedNumber = ""
-        enableOfSelectedNumbers()
-        changeButtonLabel.tintColor = UIColor.black
+    @IBAction func agreeToTerms() {
+       // Create the action buttons for the alert.
+       let defaultAction = UIAlertAction(title: "Agree",
+                            style: .default) { (action) in
+        // Respond to user selection of the action.
+       }
+       let cancelAction = UIAlertAction(title: "Disagree",
+                            style: .cancel) { (action) in
+        // Respond to user selection of the action.
+       }
+       
+       // Create and configure the alert controller.
+       let alert = UIAlertController(title: "Terms and Conditions",
+             message: "Click Agree to accept the terms and conditions.",
+             preferredStyle: .alert)
+       alert.addAction(defaultAction)
+       alert.addAction(cancelAction)
+            
+       self.present(alert, animated: true) {
+          // The alert was presented
+       }
     }
     
+    @IBAction func restartButtonClicked(_ sender: Any) {
+        let alert = UIAlertController(title: "Warning!", message: "Do you want to restart the game", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Agree", style: UIAlertAction.Style.default, handler: { [self] action in
+            buttonLabel.titleLabel?.text = "Make a guess!"
+            set = []
+            while set.count < userNumberArray.count {
+                set.insert(Int.random(in: 0...9))
+                }
+            randomArray = Array(set)
+            print(set)
+            notes = ""
+            notesLabel.text = "Notes"
+            common = 0
+            minus = 0
+            plus = 0
+            numberOfClicked = 0
+            view.backgroundColor = UIColor.systemTeal
+            numberTextField.text = ""
+            numberTextField.backgroundColor = UIColor.systemTeal
+            numberTextField.isHidden = false
+            buttonLabel.isHidden = false
+            changeColorOfTintColorToBlack()
+            selectedZeroTF.tintColor = UIColor.black
+            selectedOneTF.tintColor = UIColor.black
+            selectedTwoTF.tintColor = UIColor.black
+            selectedThreeTF.tintColor = UIColor.black
+            selectedFourTF.tintColor = UIColor.black
+            selectedFiveTF.tintColor = UIColor.black
+            selectedSixTF.tintColor = UIColor.black
+            selectedSevenTF.tintColor = UIColor.black
+            selectedEightTF.tintColor = UIColor.black
+            selectedNineTF.tintColor = UIColor.black
+            textField1.backgroundColor = UIColor.systemTeal
+            textField2.backgroundColor = UIColor.systemTeal
+            textField3.backgroundColor = UIColor.systemTeal
+            textField4.backgroundColor = UIColor.systemTeal
+            textField1.text = ""
+            textField2.text = ""
+            textField3.text = ""
+            textField4.text = ""
+            textField1.isEnabled = true
+            textField2.isEnabled = true
+            textField3.isEnabled = true
+            textField4.isEnabled = true
+            selectedNumber = ""
+            enableOfSelectedNumbers()
+            changeButtonLabel.tintColor = UIColor.black
+        })
+        let cancelAction = UIAlertAction(title: "Disagree", style: UIAlertAction.Style.cancel)
+        alert.addAction(defaultAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     func enableOfSelectedNumbers() {
         selectedZeroTF.isEnabled = true
         selectedOneTF.isEnabled = true
