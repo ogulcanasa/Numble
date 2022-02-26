@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var userNumberArray = [Int]()
     var randomArray = [Int]()
     var notes = ""
+    var newNote = ""
     var set = Set<Int>()
     var common = 0
     var plus = 0
@@ -86,7 +87,12 @@ class ViewController: UIViewController {
                 numberTextField.text = ""
             } else {
             minus = common - plus
-            notes = "\(numberTextField.text!) ( \(plus) / \(-minus))"
+            if plus == 0 {
+            newNote = "\(numberTextField.text!) ( \(plus) / \(-minus))"
+            } else {
+            newNote = "\(numberTextField.text!) ( +\(plus) / \(-minus))"
+            }
+            notes = notes + "\n \(newNote)"
             notesLabel.text = notes
             numberTextField.text = ""
             print(randomArray)
@@ -107,11 +113,16 @@ class ViewController: UIViewController {
                 }
             }
             minus = common - plus
-            let newNote = "\(numberTextField.text!) ( \(plus) / \(-minus))"
+            if plus == 0 {
+            newNote = "\(numberTextField.text!) ( \(plus) / \(-minus))"
+            } else {
+            newNote = "\(numberTextField.text!) ( +\(plus) / \(-minus))"
+            }
             notes = notes + "\n \(newNote)"
             notesLabel.text = notes
             numberTextField.text = ""
         }
+        
         
         if plus == 4 {
             notesLabel.text = "CONGRATULATIONS!! \n TRIAL: \(numberOfClicked)"
@@ -210,32 +221,9 @@ class ViewController: UIViewController {
         selectedNumber = ""
     }
     
-    @IBAction func agreeToTerms() {
-       // Create the action buttons for the alert.
-       let defaultAction = UIAlertAction(title: "Agree",
-                            style: .default) { (action) in
-        // Respond to user selection of the action.
-       }
-       let cancelAction = UIAlertAction(title: "Disagree",
-                            style: .cancel) { (action) in
-        // Respond to user selection of the action.
-       }
-       
-       // Create and configure the alert controller.
-       let alert = UIAlertController(title: "Terms and Conditions",
-             message: "Click Agree to accept the terms and conditions.",
-             preferredStyle: .alert)
-       alert.addAction(defaultAction)
-       alert.addAction(cancelAction)
-            
-       self.present(alert, animated: true) {
-          // The alert was presented
-       }
-    }
-    
     @IBAction func restartButtonClicked(_ sender: Any) {
         let alert = UIAlertController(title: "Warning!", message: "Do you want to restart the game", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Agree", style: UIAlertAction.Style.default, handler: { [self] action in
+        let defaultAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { [self] action in
             buttonLabel.titleLabel?.text = "Make a guess!"
             set = []
             while set.count < userNumberArray.count {
@@ -281,7 +269,7 @@ class ViewController: UIViewController {
             enableOfSelectedNumbers()
             changeButtonLabel.tintColor = UIColor.black
         })
-        let cancelAction = UIAlertAction(title: "Disagree", style: UIAlertAction.Style.cancel)
+        let cancelAction = UIAlertAction(title: "Back to the game!", style: UIAlertAction.Style.cancel)
         alert.addAction(defaultAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
