@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A2DE9E427CAC2DB00E4ACE6 /* timeIsUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A2DE9E327CAC2DB00E4ACE6 /* timeIsUp.mp3 */; };
 		6AC424C127C3794C00ECAF6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC424C027C3794C00ECAF6B /* AppDelegate.swift */; };
 		6AC424C327C3794C00ECAF6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC424C227C3794C00ECAF6B /* SceneDelegate.swift */; };
 		6AC424C527C3794C00ECAF6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC424C427C3794C00ECAF6B /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A2DE9E327CAC2DB00E4ACE6 /* timeIsUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = timeIsUp.mp3; path = ../../../../timeIsUp.mp3; sourceTree = "<group>"; };
 		6AC424BD27C3794C00ECAF6B /* Numble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Numble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AC424C027C3794C00ECAF6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AC424C227C3794C00ECAF6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				6AC424D527C393E100ECAF6B /* View */,
 				6AC424D427C393D900ECAF6B /* Controller */,
 				6AC424C927C3794D00ECAF6B /* Assets.xcassets */,
+				6A2DE9E327CAC2DB00E4ACE6 /* timeIsUp.mp3 */,
 				6AC424CB27C3794D00ECAF6B /* LaunchScreen.storyboard */,
 				6AC424CE27C3794D00ECAF6B /* Info.plist */,
 			);
@@ -151,6 +154,7 @@
 			files = (
 				6AC424CD27C3794D00ECAF6B /* LaunchScreen.storyboard in Resources */,
 				6AC424CA27C3794D00ECAF6B /* Assets.xcassets in Resources */,
+				6A2DE9E427CAC2DB00E4ACE6 /* timeIsUp.mp3 in Resources */,
 				6AC424C827C3794D00ECAF6B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
