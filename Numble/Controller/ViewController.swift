@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var changeButtonLabel: UIButton!
     @IBOutlet weak var selectedZeroTF,selectedOneTF,selectedTwoTF,selectedThreeTF,selectedFourTF,selectedFiveTF,selectedSixTF,selectedSevenTF,selectedEightTF,selectedNineTF: UIButton!
     @IBOutlet weak var zeroTF,oneTF,twoTF,threeTF,fourTF,fiveTF,sixTF,sevenTF,eightTF,nineTF: UIButton!
-    @IBOutlet weak var textField1,textField2,textField3,textField4: UITextField!
 
     var number = ""
     var numberInt : Int!
@@ -57,7 +56,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func guessButtonClicked(_ sender: Any) {
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(timeIsUp), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(timeIsUp), userInfo: nil, repeats: false)
         (sender as AnyObject).setTitle("Continue to guess...", for: .normal)
         number = numberTextField.text ?? "0000"
         numberInt = Int(number) ?? 0000
@@ -133,45 +132,14 @@ class ViewController: UIViewController {
             numberTextField.text = ""
         }
         
-        
         if plus == 4 {
             notesLabel.text = "CONGRATULATIONS!! \n TRIAL: \(numberOfClicked)"
-            textField1.isEnabled = false
-            textField2.isEnabled = false
-            textField3.isEnabled = false
-            textField4.isEnabled = false
             numberTextField.isHidden = true
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.green
             numberTextField.backgroundColor = UIColor.green
-            zeroTF.tintColor = UIColor.green
-            oneTF.tintColor = UIColor.green
-            twoTF.tintColor = UIColor.green
-            threeTF.tintColor = UIColor.green
-            fourTF.tintColor = UIColor.green
-            fiveTF.tintColor = UIColor.green
-            sixTF.tintColor = UIColor.green
-            sevenTF.tintColor = UIColor.green
-            eightTF.tintColor = UIColor.green
-            nineTF.tintColor = UIColor.green
-            selectedZeroTF.tintColor = UIColor.green
-            selectedOneTF.tintColor = UIColor.green
-            selectedTwoTF.tintColor = UIColor.green
-            selectedThreeTF.tintColor = UIColor.green
-            selectedFourTF.tintColor = UIColor.green
-            selectedFiveTF.tintColor = UIColor.green
-            selectedSixTF.tintColor = UIColor.green
-            selectedSevenTF.tintColor = UIColor.green
-            selectedEightTF.tintColor = UIColor.green
-            selectedNineTF.tintColor = UIColor.green
-            textField1.backgroundColor = UIColor.green
-            textField2.backgroundColor = UIColor.green
-            textField3.backgroundColor = UIColor.green
-            textField4.backgroundColor = UIColor.green
-            textField1.text = String(userNumberArray[0])
-            textField2.text = String(userNumberArray[1])
-            textField3.text = String(userNumberArray[2])
-            textField4.text = String(userNumberArray[3])
+            makeSelectedTFGreen()
+            makeTFGreen()
             changeButtonLabel.tintColor = UIColor.green
         }
         
@@ -181,43 +149,8 @@ class ViewController: UIViewController {
             buttonLabel.isHidden = true
             view.backgroundColor = UIColor.red
             numberTextField.backgroundColor = UIColor.red
-            zeroTF.tintColor = UIColor.red
-            oneTF.tintColor = UIColor.red
-            twoTF.tintColor = UIColor.red
-            threeTF.tintColor = UIColor.red
-            fourTF.tintColor = UIColor.red
-            fiveTF.tintColor = UIColor.red
-            sixTF.tintColor = UIColor.red
-            sevenTF.tintColor = UIColor.red
-            eightTF.tintColor = UIColor.red
-            nineTF.tintColor = UIColor.red
-            selectedZeroTF.tintColor = UIColor.red
-            selectedOneTF.tintColor = UIColor.red
-            selectedTwoTF.tintColor = UIColor.red
-            selectedThreeTF.tintColor = UIColor.red
-            selectedFourTF.tintColor = UIColor.red
-            selectedFiveTF.tintColor = UIColor.red
-            selectedSixTF.tintColor = UIColor.red
-            selectedSevenTF.tintColor = UIColor.red
-            selectedEightTF.tintColor = UIColor.red
-            selectedNineTF.tintColor = UIColor.red
-            textField1.backgroundColor = UIColor.red
-            textField2.backgroundColor = UIColor.red
-            textField3.backgroundColor = UIColor.red
-            textField4.backgroundColor = UIColor.red
-            textField1.backgroundColor = UIColor.red
-            textField2.backgroundColor = UIColor.red
-            textField3.backgroundColor = UIColor.red
-            textField4.backgroundColor = UIColor.red
-            textField1.text = ""
-            textField2.text = ""
-            textField3.text = ""
-            textField4.text = ""
-            textField1.isEnabled = false
-            textField2.isEnabled = false
-            textField3.isEnabled = false
-            textField4.isEnabled = false
-            changeButtonLabel.tintColor = UIColor.red
+            makeTFRed()
+            makeSelectedTFRed()
         }
         selectedNumber = ""
     }
@@ -225,6 +158,7 @@ class ViewController: UIViewController {
     @IBAction func numberButtonClicked(_ sender: UIButton) {
         sender.tintColor = UIColor.systemTeal
     }
+    
     @IBAction func changeTheNumberButtonClicked(_ sender: UIButton) {
         enableOfSelectedNumbers()
         numberTextField.text = ""
@@ -253,28 +187,7 @@ class ViewController: UIViewController {
             numberTextField.isHidden = false
             buttonLabel.isHidden = false
             changeColorOfTintColorToBlack()
-            selectedZeroTF.tintColor = UIColor.black
-            selectedOneTF.tintColor = UIColor.black
-            selectedTwoTF.tintColor = UIColor.black
-            selectedThreeTF.tintColor = UIColor.black
-            selectedFourTF.tintColor = UIColor.black
-            selectedFiveTF.tintColor = UIColor.black
-            selectedSixTF.tintColor = UIColor.black
-            selectedSevenTF.tintColor = UIColor.black
-            selectedEightTF.tintColor = UIColor.black
-            selectedNineTF.tintColor = UIColor.black
-            textField1.backgroundColor = UIColor.systemTeal
-            textField2.backgroundColor = UIColor.systemTeal
-            textField3.backgroundColor = UIColor.systemTeal
-            textField4.backgroundColor = UIColor.systemTeal
-            textField1.text = ""
-            textField2.text = ""
-            textField3.text = ""
-            textField4.text = ""
-            textField1.isEnabled = true
-            textField2.isEnabled = true
-            textField3.isEnabled = true
-            textField4.isEnabled = true
+            makeSelectedTFBlack()
             selectedNumber = ""
             enableOfSelectedNumbers()
             changeButtonLabel.tintColor = UIColor.black
@@ -294,7 +207,53 @@ class ViewController: UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-
+    
+    @objc func timeIsUp() {
+        let url = Bundle.main.url(forResource: "timeIsUp", withExtension: "mp3")
+           player = try! AVAudioPlayer(contentsOf: url!)
+           player.play()
+    }
+    
+    func makeSelectedTFBlack() {
+        selectedZeroTF.tintColor = UIColor.black
+        selectedOneTF.tintColor = UIColor.black
+        selectedTwoTF.tintColor = UIColor.black
+        selectedThreeTF.tintColor = UIColor.black
+        selectedFourTF.tintColor = UIColor.black
+        selectedFiveTF.tintColor = UIColor.black
+        selectedSixTF.tintColor = UIColor.black
+        selectedSevenTF.tintColor = UIColor.black
+        selectedEightTF.tintColor = UIColor.black
+        selectedNineTF.tintColor = UIColor.black
+    }
+    
+    func makeSelectedTFRed() {
+        selectedZeroTF.tintColor = UIColor.red
+        selectedOneTF.tintColor = UIColor.red
+        selectedTwoTF.tintColor = UIColor.red
+        selectedThreeTF.tintColor = UIColor.red
+        selectedFourTF.tintColor = UIColor.red
+        selectedFiveTF.tintColor = UIColor.red
+        selectedSixTF.tintColor = UIColor.red
+        selectedSevenTF.tintColor = UIColor.red
+        selectedEightTF.tintColor = UIColor.red
+        selectedNineTF.tintColor = UIColor.red
+        changeButtonLabel.tintColor = UIColor.red
+    }
+    
+    func makeSelectedTFGreen() {
+        selectedZeroTF.tintColor = UIColor.green
+        selectedOneTF.tintColor = UIColor.green
+        selectedTwoTF.tintColor = UIColor.green
+        selectedThreeTF.tintColor = UIColor.green
+        selectedFourTF.tintColor = UIColor.green
+        selectedFiveTF.tintColor = UIColor.green
+        selectedSixTF.tintColor = UIColor.green
+        selectedSevenTF.tintColor = UIColor.green
+        selectedEightTF.tintColor = UIColor.green
+        selectedNineTF.tintColor = UIColor.green
+    }
+    
     func enableOfSelectedNumbers() {
         selectedZeroTF.isEnabled = true
         selectedOneTF.isEnabled = true
@@ -321,6 +280,32 @@ class ViewController: UIViewController {
         selectedNineTF.isEnabled = false
     }
     
+    func makeTFRed() {
+        zeroTF.tintColor = UIColor.red
+        oneTF.tintColor = UIColor.red
+        twoTF.tintColor = UIColor.red
+        threeTF.tintColor = UIColor.red
+        fourTF.tintColor = UIColor.red
+        fiveTF.tintColor = UIColor.red
+        sixTF.tintColor = UIColor.red
+        sevenTF.tintColor = UIColor.red
+        eightTF.tintColor = UIColor.red
+        nineTF.tintColor = UIColor.red
+    }
+    
+    func makeTFGreen() {
+        zeroTF.tintColor = UIColor.green
+        oneTF.tintColor = UIColor.green
+        twoTF.tintColor = UIColor.green
+        threeTF.tintColor = UIColor.green
+        fourTF.tintColor = UIColor.green
+        fiveTF.tintColor = UIColor.green
+        sixTF.tintColor = UIColor.green
+        sevenTF.tintColor = UIColor.green
+        eightTF.tintColor = UIColor.green
+        nineTF.tintColor = UIColor.green
+    }
+    
     func changeColorOfTintColorToBlack() {
         zeroTF.tintColor = UIColor.black
         oneTF.tintColor = UIColor.black
@@ -333,11 +318,5 @@ class ViewController: UIViewController {
         eightTF.tintColor = UIColor.black
         nineTF.tintColor = UIColor.black
         zeroTF.tintColor = UIColor.black
-    }
-    
-    @objc func timeIsUp() {
-        let url = Bundle.main.url(forResource: "timeIsUp", withExtension: "mp3")
-           player = try! AVAudioPlayer(contentsOf: url!)
-           player.play()
     }
 }
