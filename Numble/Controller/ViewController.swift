@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import AVFoundation
 
 class ViewController: UIViewController {
 
-    
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var notesLabel: UILabel!
@@ -31,7 +29,6 @@ class ViewController: UIViewController {
     var minus = 0
     private var numberOfClicked = 0
     var selectedNumber = ""
-    var player: AVAudioPlayer!
     private var timer = Timer()
     
     override func viewDidLoad() {
@@ -42,9 +39,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func selectedNumberButtonClicked(_ sender: UIButton) {
-        if player != nil {
-            player.stop()
-        }
         timer.invalidate()
         selectedNumber = selectedNumber + (sender.titleLabel!.text!)
         numberTextField.text = selectedNumber
@@ -56,7 +50,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func guessButtonClicked(_ sender: Any) {
-        timer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(timeIsUp), userInfo: nil, repeats: false)
         (sender as AnyObject).setTitle("Continue to guess...", for: .normal)
         number = numberTextField.text ?? "0000"
         numberInt = Int(number) ?? 0000
@@ -196,22 +189,10 @@ class ViewController: UIViewController {
         alert.addAction(defaultAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
-        if player != nil {
-            player.stop()
-            player = nil
-        } else {
-            timeIsUp()
-        }
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
-    }
-    
-    @objc func timeIsUp() {
-        let url = Bundle.main.url(forResource: "timeIsUp", withExtension: "mp3")
-           player = try! AVAudioPlayer(contentsOf: url!)
-           player.play()
     }
     
     func makeSelectedTFBlack() {
