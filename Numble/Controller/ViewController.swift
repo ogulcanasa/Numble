@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
+    
+    
+    @IBOutlet var player1TextField: UITextField!
+    @IBOutlet var player2TextField: UITextField!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var notesLabel: UILabel!
@@ -32,15 +37,17 @@ class ViewController: UIViewController {
     var common = 0
     var plus = 0
     var minus = 0
-    private var numberOfClicked = 0
+    var numberOfClicked : Int = 0
     var selectedNumber = ""
+    var nameArray = [String]()
+    var scoreArray = [Int32]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         numberTextField.isEnabled = false
         buttonLabel.isEnabled = false
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-           view.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
         while set.count < 4 {
             set.insert(Int.random(in: 0...9))
         }
@@ -112,6 +119,33 @@ class ViewController: UIViewController {
         selectedNumber = ""
     }
 
+    @IBAction func saveButtonClicked(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let players = NSEntityDescription.insertNewObject(forEntityName: "Scores", into: context)
+        
+        //Attributes
+        
+        players.setValue(player1TextField.text!, forKey: "player1")
+        players.setValue(player2TextField.text!, forKey: "player2")
+        players.setValue(numberOfClicked, forKey: "score")
+        
+        do {
+            try context.save()
+            print("success")
+        } catch {
+            print("error")
+        }
+        
+        player1TextField.text = ""
+        player2TextField.text = ""
+    }
+        
+    
+    @IBAction func scoreButtonClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toDetailsVC", sender: nil)
+    }
+
     @IBAction func numberButtonClicked(_ sender: UIButton) {
         sender.tintColor = UIColor.systemTeal
     }
@@ -154,7 +188,7 @@ class ViewController: UIViewController {
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        view.endEditing(false)
     }
     
     func makeSelectedTFBlack() {
@@ -197,4 +231,15 @@ class ViewController: UIViewController {
         for textField in textFieldButton {
             textField.tintColor = UIColor.black
     }}
+    
+    @IBAction func quickGuessButtonClicked(_ sender: Any) {
+        Timer.scheduledTimer(timeInterval: 20.0, target:self, selector: #selector(quickGuess), userInfo:nil, repeats: false)
+    }
+    
+    @objc func quickGuess() {
+        let alert = UIAlertController(title: "Time's up", message: "Let's see your guess", preferredStyle: UIAlertController.Style.alert)
+        let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
