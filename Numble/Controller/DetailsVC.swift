@@ -9,11 +9,8 @@ import UIKit
 import CoreData
 
 class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
-
-    @IBOutlet var tableView: UITableView!
     
-    // @IBOutlet var appNameLabel: UILabel!
-    //@IBOutlet var playersTextField: UILabel!
+    @IBOutlet var tableView: UITableView!
     
     var player1Array = [String]()
     var player2Array = [String]()
@@ -47,7 +44,7 @@ class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
                         self.player2Array.append(player2)
                     }
                     if let score = result.value(forKey: "score") as? Int32 {
-                            self.numberOfGuess.append(Int(score))
+                        self.numberOfGuess.append(Int(score))
                     }
                 }
             }
@@ -86,37 +83,32 @@ class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
     }
     
     @IBAction func clearButtonClicked(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Scores")
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.count > 0 {
-                for result in results as! [NSManagedObject] {
-                    context.delete(result)
+        let alert = UIAlertController(title: "Warning!", message: "Do you want to clear the scoreboard?", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {_ in
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Scores")
+            fetchRequest.returnsObjectsAsFaults = false
+            do {
+                let results = try context.fetch(fetchRequest)
+                if results.count > 0 {
+                    for result in results as! [NSManagedObject] {
+                        context.delete(result)
+                        try context.save()
+                    }
+                    self.player1Array.removeAll()
+                    self.player2Array.removeAll()
+                    self.tableView.reloadData()
                 }
-                self.tableView.reloadData()
+            } catch {
+                print("error")
             }
-        } catch {
-            print("error")
-        }
+        })
+        let cancelAction = UIAlertAction(title: "Back to the game!", style: UIAlertAction.Style.cancel)
+        alert.addAction(defaultAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
-
-
-/* Hareketli Yazı İçin
-appNameLabel.text = ""
-var charIndex = 0.0
-let titleText = "NUMBLE 1️⃣2️⃣3️⃣"
-appNameLabel.textColor = .blue
-
-for letter in titleText {
-    Timer.scheduledTimer(withTimeInterval: 0.15 * charIndex, repeats: false) { (timer) in
-        self.appNameLabel.text?.append(letter)
-    }
-    charIndex += 1
-}
-*/
-    

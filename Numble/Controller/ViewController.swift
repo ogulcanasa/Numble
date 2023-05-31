@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     
     
+    @IBOutlet var saveButton: UIButton!
     @IBOutlet var player1TextField: UITextField!
     @IBOutlet var player2TextField: UITextField!
     @IBOutlet weak var restartButton: UIButton!
@@ -44,6 +45,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = ""
+        var charIndex = 0.0
+        let titleText = "⁌ NUMBLE ⁍"
+
+        for letter in titleText {
+            Timer.scheduledTimer(withTimeInterval: 0.15 * charIndex, repeats: false) { (timer) in
+                self.title!.append(letter)
+            }
+            charIndex += 1
+        }
+        
+        saveButton.isEnabled = false
         numberTextField.isEnabled = false
         buttonLabel.isEnabled = false
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -52,6 +65,7 @@ class ViewController: UIViewController {
             set.insert(Int.random(in: 0...9))
         }
         randomArray = Array(set)
+        print(randomArray)
     }
     
     @IBAction func selectedNumberButtonClicked(_ sender: UIButton) {
@@ -100,6 +114,7 @@ class ViewController: UIViewController {
             makeSelectedTFGreen()
             makeTFGreen()
             changeButtonLabel.tintColor = UIColor.green
+            saveButton.isEnabled = true
         }
         
         if numberOfClicked > 19 {
@@ -139,6 +154,7 @@ class ViewController: UIViewController {
         
         player1TextField.text = ""
         player2TextField.text = ""
+        saveButton.isEnabled = false
     }
         
     
@@ -180,6 +196,8 @@ class ViewController: UIViewController {
             selectedNumber = ""
             enableOfSelectedNumbers()
             changeButtonLabel.tintColor = UIColor.black
+            player1TextField.text = ""
+            player2TextField.text = ""
         })
         let cancelAction = UIAlertAction(title: "Back to the game!", style: UIAlertAction.Style.cancel)
         alert.addAction(defaultAction)
