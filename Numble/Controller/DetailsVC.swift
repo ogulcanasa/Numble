@@ -1,14 +1,7 @@
-//
-//  DetailsVC.swift
-//  Numble
-//
-//  Created by Oğulcan Aşa on 30.08.2022.
-//
-
 import UIKit
 import CoreData
 
-class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class DetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
     
@@ -22,15 +15,65 @@ class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        getData()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
         getData()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return player1Array.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! ScoreCell
+        cell.playersLabel.text = "\(player1Array[indexPath.row]) - \(player2Array[indexPath.row])"
+        if numberOfGuess[indexPath.row] % 2 == 0 {
+            cell.player1Win.isHidden = true
+            cell.player2Win.isHidden = false
+        } else {
+            cell.player1Win.isHidden = false
+            cell.player2Win.isHidden = true
+        }
+        cell.scoreLabel.text = String(numberOfGuess[indexPath.row]) + " guess"
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+
+            let fetchRequest: NSFetchRequest<Scores> = Scores.fetchRequest()
+
+            let predicate = NSPredicate(format: "player1 == %@", player1Array[indexPath.row])
+            fetchRequest.predicate = predicate
+
+            do {
+                let results = try context.fetch(fetchRequest)
+                for object in results {
+                    context.delete(object)
+                }
+                try context.save()
+                player1Array.remove(at: indexPath.row)
+                player2Array.remove(at: indexPath.row)
+                numberOfGuess.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func getData() {
-        
+        player1Array.removeAll(keepingCapacity: false)
+        player2Array.removeAll(keepingCapacity: false)
+        numberOfGuess.removeAll(keepingCapacity: false)
+
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        
+
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Scores")
         fetchRequest.returnsObjectsAsFaults = false
         do {
@@ -51,64 +94,6 @@ class DetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
         } catch {
             print("error")
         }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return player1Array.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! ScoreCell
-        cell.playersLabel.text = "\(player1Array[indexPath.row]) - \(player2Array[indexPath.row])"
-        if numberOfGuess[indexPath.row] % 2 == 0 {
-            cell.player1Win.isHidden = true
-            cell.player2Win.isHidden = false
-        } else {
-            cell.player1Win.isHidden = false
-            cell.player2Win.isHidden = true
-        }
-        switch numberOfGuess[indexPath.row] {
-        case 1:
-            cell.scoreLabel.text = "5"
-        case 2:
-            cell.scoreLabel.text = "4"
-        case 3...4:
-            cell.scoreLabel.text = "3"
-        case 5:
-            cell.scoreLabel.text = "2"
-        default:
-            cell.scoreLabel.text = "1"
-        }
-        return cell
-    }
-    
-    @IBAction func clearButtonClicked(_ sender: Any) {
-        
-        let alert = UIAlertController(title: "Warning!", message: "Do you want to clear the scoreboard?", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {_ in
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Scores")
-            fetchRequest.returnsObjectsAsFaults = false
-            do {
-                let results = try context.fetch(fetchRequest)
-                if results.count > 0 {
-                    for result in results as! [NSManagedObject] {
-                        context.delete(result)
-                        try context.save()
-                    }
-                    self.player1Array.removeAll()
-                    self.player2Array.removeAll()
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("error")
-            }
-        })
-        let cancelAction = UIAlertAction(title: "Back to the game!", style: UIAlertAction.Style.cancel)
-        alert.addAction(defaultAction)
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true, completion: nil)
+        tableView.reloadData()
     }
 }
