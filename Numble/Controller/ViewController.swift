@@ -7,6 +7,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet var guessButton: UIButton!
+    @IBOutlet var turnLabel: UILabel!
     @IBOutlet weak var changeButtonLabel: UIButton!
     @IBOutlet weak var selectedZeroTF,selectedOneTF,selectedTwoTF,selectedThreeTF,selectedFourTF,selectedFiveTF,selectedSixTF,selectedSevenTF,selectedEightTF,selectedNineTF: UIButton!
     
@@ -21,7 +22,15 @@ class ViewController: UIViewController {
     var common = 0
     var plus = 0
     var minus = 0
-    var numberOfClicked : Int = 0
+    var numberOfClicked : Int = 0 {
+        didSet{
+            if numberOfClicked % 2 == 0 {
+                turnLabel.text = chosenPlayer1
+            } else {
+                turnLabel.text = chosenPlayer2
+            }
+        }
+    }
     var selectedNumber = ""
     var nameArray = [String]()
     var scoreArray = [Int32]()
@@ -38,6 +47,7 @@ class ViewController: UIViewController {
             item.clipsToBounds = true
         }
 
+        turnLabel.text = chosenPlayer1
         guessButton.isEnabled = false
         guessButton.backgroundColor = UIColor.lightGray
         guessButton.layer.cornerRadius = guessButton.frame.size.height / 2
@@ -66,11 +76,13 @@ class ViewController: UIViewController {
         }
 
         UIView.animate(withDuration: 0.3, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                sender.transform = CGAffineTransform(scaleX: 2, y: 2)
                 sender.alpha = 0
             }) { (_) in
                 UIView.animate(withDuration: 0.3) {
                     sender.transform = CGAffineTransform.identity
+                    sender.backgroundColor = .white
+                    sender.titleLabel?.textColor = .white
                     sender.alpha = 1
                 }
             }
@@ -131,6 +143,7 @@ class ViewController: UIViewController {
             guessButton.isHidden = true
             view.backgroundColor = UIColor.red
             numberTextField.backgroundColor = UIColor.red
+            notesLabel.backgroundColor = .red
             changeTFColor(color: .red)
             changeButtonLabel.tintColor = UIColor.red
         }
@@ -160,7 +173,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func changeTheNumberButtonClicked(_ sender: UIButton) {
-        enableOfSelectedNumbers()
+        for button in selectedbTFButton {
+            button.titleLabel?.textColor = .white
+            button.backgroundColor = .black
+            button.isEnabled = true
+        }
         numberTextField.text = ""
         selectedNumber = ""
     }
@@ -204,20 +221,22 @@ class ViewController: UIViewController {
     }
 
     func changeTFColor(color: UIColor) {
-        for textField in selectedbTFButton {
-            textField.tintColor = color
+        for button in selectedbTFButton {
+            button.tintColor = color
         }
     }
 
     func enableOfSelectedNumbers() {
-        for textField in selectedbTFButton {
-            textField.isEnabled = true
+        for button in selectedbTFButton {
+            button.titleLabel?.textColor = .black
+            button.backgroundColor = .black
+            button.isEnabled = true
         }
     }
     
     func disableOfSelectedNumbers() {
-        for textField in selectedbTFButton {
-            textField.isEnabled = false
+        for button in selectedbTFButton {
+            button.isEnabled = false
         }
     }
 }
