@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
         player2TextField.layer.masksToBounds = true
         player2TextField.borderStyle = .line
         player2TextField.layer.cornerRadius = 7
-
     }
     
     @objc func dismissKeyboard() {
