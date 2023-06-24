@@ -75,11 +75,11 @@ class ViewController: UIViewController {
             guessButton.isEnabled = true
         }
 
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
                 sender.transform = CGAffineTransform(scaleX: 2, y: 2)
                 sender.alpha = 0
             }) { (_) in
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.15) {
                     sender.transform = CGAffineTransform.identity
                     sender.backgroundColor = .white
                     sender.titleLabel?.textColor = .white
